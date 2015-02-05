@@ -3,3 +3,58 @@ provider:
   version: 0.1.0.pre
   location: https://github.com/ActiveSCM/putenv-plugin-test.git
 
+  structure:
+
+    require:
+      - compute
+      - tags
+
+    platform:
+      path:
+      params:
+        count:
+          type: integer
+          range: 1..100
+        runlist:
+          array:
+            type: string
+            match: 'regex'
+        componentrole:
+          type: string
+          match: 'regex'
+        chefserver:
+          type: string
+          match: 'regex'
+
+    compute:
+      path: 'infrastructure/'
+      params:
+        ram:
+          type: integer
+          range: 128..262144
+        cpu:
+          type: integer
+          range: 1..16
+        drive:
+          hash:
+            mount:
+              type: string
+              match: 'regex'
+            capacity:
+              type: integer
+              range: 8..2048
+        image:
+          type: string
+          match: 'regex'
+
+    networks:
+      path: 'infrastructure/'
+      params:
+        tag1:
+          type: string
+          match: 'regex'
+        tag2:
+          type: IP
+        tag3:
+          type: integer
+          range: 1..24
